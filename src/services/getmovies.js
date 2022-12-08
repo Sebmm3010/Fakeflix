@@ -49,49 +49,17 @@ export const getMovies = async ({ opt, type, page }) => {
     //Cases= popular(page)-top()-categoria(type) coming()
     switch (opt) {
         case 'popular':
-            try {
-                const popular = await ajax(optionsPopular);
-                return popular;
-            } catch (error) {
-                console.log(error);
-                return {
-                    ok: false,
-                    msg: 'No se puedo hayar la informacion'
-                }
-            }
+            const popular = await ajax(optionsPopular);
+            return popular;
         case 'top':
-            try {
-                const topRated = await ajax(optionTop);
-                return topRated;
-            } catch (error) {
-                console.log(error);
-                return {
-                    ok: false,
-                    msg: 'No se puedo hayar la informacion'
-                }
-            }
+            const topRated = await ajax(optionTop);
+            return topRated;
         case 'categoria':
-            try {
-                const categoriaMovies = await ajax(optionType);
-                return categoriaMovies;
-            } catch (error) {
-                console.log(error);
-                return {
-                    ok: false,
-                    msg: 'No se puedo hayar la informacion'
-                }
-            }
+            const categoriaMovies = await ajax(optionType);
+            return categoriaMovies;
         case 'coming':
-            try {
-                const upComing = await ajax(optionProximos);
-                return upComing;
-            } catch (error) {
-                console.log(error);
-                return {
-                    ok: false,
-                    msg: 'No se puedo hayar la informacion'
-                }
-            }
+            const upComing = await ajax(optionProximos);
+            return upComing;
         default:
             return;
     }
