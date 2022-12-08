@@ -1,7 +1,7 @@
 import { ajax } from "../tools/ajax";
 
 const key = import.meta.env.VITE_MOVIEDB;
-export const getMovies = async (opt = '', type ='', page) => {
+export const getMovies = async (opt = '', type = '', page) => {
 
     /* Opciones */
 
@@ -46,20 +46,52 @@ export const getMovies = async (opt = '', type ='', page) => {
             page: 1
         }
     }
-//Cases= popular(page)-top()-categoria(type) coming()
+    //Cases= popular(page)-top()-categoria(type) coming()
     switch (opt) {
         case 'popular':
-            const popular= await ajax(optionsPopular);
-            return popular;
+            try {
+                const popular = await ajax(optionsPopular);
+                return popular;
+            } catch (error) {
+                console.log(error);
+                return {
+                    ok: false,
+                    msg: 'No se puedo hayar la informacion'
+                }
+            }
         case 'top':
-            const topRated= await ajax(optionTop);
-            return topRated;
+            try {
+                const topRated = await ajax(optionTop);
+                return topRated;
+            } catch (error) {
+                console.log(error);
+                return {
+                    ok: false,
+                    msg: 'No se puedo hayar la informacion'
+                }
+            }
         case 'categoria':
-            const categoriaMovies= await ajax(optionType);
-            return categoriaMovies;
+            try {
+                const categoriaMovies = await ajax(optionType);
+                return categoriaMovies;
+            } catch (error) {
+                console.log(error);
+                return {
+                    ok: false,
+                    msg: 'No se puedo hayar la informacion'
+                }
+            }
         case 'coming':
-            const upComing= await ajax(optionProximos);
-            return upComing;
+            try {
+                const upComing = await ajax(optionProximos);
+                return upComing;
+            } catch (error) {
+                console.log(error);
+                return {
+                    ok: false,
+                    msg: 'No se puedo hayar la informacion'
+                }
+            }
         default:
             return;
     }
