@@ -1,7 +1,7 @@
 import { ajax } from "../tools/ajax";
 
 const key = import.meta.env.VITE_MOVIEDB;
-export const getMovies = async (opt = '', type = '', page) => {
+export const getMovies = async ({ opt, type, page }) => {
 
     /* Opciones */
 
