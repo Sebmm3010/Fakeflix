@@ -50,16 +50,16 @@ export const getMovies = async ({ opt, type, page }) => {
     switch (opt) {
         case 'popular':
             const popular = await ajax(optionsPopular);
-            return popular;
+            return popular.results;
         case 'top':
             const topRated = await ajax(optionTop);
-            return topRated;
+            return topRated.results;
         case 'categoria':
             const categoriaMovies = await ajax(optionType);
-            return categoriaMovies;
+            return categoriaMovies.results;
         case 'coming':
             const upComing = await ajax(optionProximos);
-            return upComing;
+            return upComing.results;
         default:
             return;
     }
