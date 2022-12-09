@@ -25,7 +25,7 @@ export const getMovies = async ({ opt, type, page }) => {
         }
     }
 
-    //Types of movies
+    //Peliculas por tipo
     const optionType = {
         method: 'GET',
         url: `https://api.themoviedb.org/3/search/movie?api_key=${key}`,

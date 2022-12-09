@@ -4,7 +4,14 @@
 @tailwind utilities;
 
 
-body{
+body {
   background-color: #000;
-  font-family: 'Roboto', sans-serif ;
+  font-family: 'Roboto', sans-serif;
+}
+
+.myShadow:hover {
+  -webkit-box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
+  -moz-box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
+  box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
+  
 }
