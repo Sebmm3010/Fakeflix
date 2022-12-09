@@ -12,7 +12,6 @@ export const Hero = () => {
         })()
     }, []);
     const peli = movies[Math.floor(Math.random() * movies.length)];
-    console.log(peli);
 
 
     return (

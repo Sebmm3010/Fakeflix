@@ -57,7 +57,7 @@ export const getMovies = async ({ opt, type, page }) => {
         case 'categoria':
             const categoriaMovies = await ajax(optionType);
             return categoriaMovies.results;
-        case 'coming':
+        case 'soon':
             const upComing = await ajax(optionProximos);
             return upComing.results;
         default:
