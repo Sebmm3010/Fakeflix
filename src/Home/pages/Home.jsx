@@ -1,10 +1,11 @@
-import { Hero, Rail } from "../components";
+import { Hero, Navbar, Rail } from "../../components";
 
 export const Home = () => {
   return (
     <>
+      <Navbar />
       <Hero />
-      <Rail rowId='1' titulo='Proximamente' options={{opt:'soon'}} />
+      <Rail rowId='1' titulo='Proximamente' options={{ opt: 'soon' }} />
       <Rail rowId='2' titulo='Populares' options={{ opt: 'popular', page: 2 }} />
       <Rail rowId='3' titulo='Lo mejor del momento' options={{ opt: 'popular', page: 1 }} />
       <Rail rowId='4' titulo='Lo mas votado' options={{ opt: 'top' }} />
