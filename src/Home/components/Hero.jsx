@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { trunckartexto } from "../helpers";
-import { getMovies } from "../services/getmovies";
+import { trunckartexto } from "../../helpers";
+import { getMovies } from "../../services/getmovies";
 
 export const Hero = () => {
 

@@ -1,4 +1,4 @@
-import { Hero, Navbar, Rail } from "../../components";
+import { Hero, Navbar, Rail } from "../components";
 
 export const Home = () => {
   return (
