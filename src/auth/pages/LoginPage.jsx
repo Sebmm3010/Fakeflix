@@ -3,6 +3,7 @@ import { AuthLayout } from "../layout/AuthLayout";
 import { FcGoogle } from "react-icons/fc";
 import { useAuthStore, useForm } from "../../hooks";
 import { Loading } from "../components";
+import { activadorButtons } from "../../helpers";
 
 export const LoginPage = () => {
 
@@ -17,13 +18,6 @@ export const LoginPage = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   }
-  const activadorButtons = (status) => {
-    if (status === 'checking') {
-      return false;
-    }
-    return true;
-  }
-
 
   return (
     <>
@@ -72,9 +66,9 @@ export const LoginPage = () => {
                   </div>
                   {/* Botones */}
                   <button
-                    className={`${activadorButtons(status) 
-                      ?'bg-red-600 p-5 my-5 rounded font-bold' 
-                      :'bg-[#870a0a] p-5 my-5 rounded font-bold '} `
+                    className={`${activadorButtons(status)
+                      ? 'bg-red-600 p-5 my-5 rounded font-bold'
+                      : 'bg-[#870a0a] p-5 my-5 rounded font-bold '} `
                     }
                     disabled={!activadorButtons(status)}
                   >
@@ -87,13 +81,17 @@ export const LoginPage = () => {
                   <button
                     onClick={handleGoogleSignIn}
                     className="bg-white text-black p-5 mb-4 rounded font-bold flex items-center border-white hover:border-[#E50608] justify-center min-w-[136.2px]"
+                    disabled={!activadorButtons(status)}
                   >
                     {activadorButtons(status) && 'Iniciar con'}
-                    <FcGoogle className={`${activadorButtons(status) ? 'ml-1':'hidden'}`} />
+                    <FcGoogle className={`${activadorButtons(status) ? 'ml-1' : 'hidden'}`} />
                     {activadorButtons(status) && 'oogle'}
-                    {!activadorButtons(status) && <Loading/>}
+                    {!activadorButtons(status) && <Loading />}
                   </button>
-                  <button className="bg-transparent border border-white hover:border-[#E50608] p-5 rounded font-bold">
+                  <button
+                    className="bg-transparent border border-white hover:border-[#E50608] p-5 rounded font-bold"
+                    disabled={!activadorButtons(status)}
+                  >
                     {
                       activadorButtons(status)
                         ? 'Entrar como invitado'

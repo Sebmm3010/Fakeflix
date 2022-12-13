@@ -1,1 +1,2 @@
-export * from './trunckartexto';
+export * from './trunckarTexto';
+export * from './activardorButtons'

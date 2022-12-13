@@ -19,7 +19,7 @@ export const useAuthStore = () => {
             dispatch(onLogin({displayName:usuario.displayName, email: usuario.email}));
         } catch (error) {
             const errorMsg = error.message;
-            console.log(error);
+            console.log(error.code);
             dispatch(onLogout({errorMsg}));
         }
     }
