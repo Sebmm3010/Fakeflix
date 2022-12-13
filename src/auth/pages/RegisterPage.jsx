@@ -3,7 +3,12 @@ import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout/AuthLayout";
 
 export const RegisterPage = () => {
-  const { onInputChange, email, password, password2 } = useForm({ email: '', password: '', password2:'' });
+  const { onInputChange,
+    nombre,
+    email,
+    password,
+    password2
+  } = useForm({ nombre: '', email: '', password: '', password2: '' });
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,8 +23,8 @@ export const RegisterPage = () => {
             alt="bg"
           />
           <div className="bg-black/60 fixed top-0 left-0 w-full h-screen"></div>
-          <div className="fixed w-full px-4 py-24 z-50">
-            <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
+          <div className="absolute w-full px-4 py-24 z-50">
+            <div className="max-w-[450px] h-[700px] mx-auto bg-black/75 text-white">
               <div className="max-w-[320px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Crea una cuenta</h1>
                 <p className="text-[#DC2626] text-sm font-bold my-4">
@@ -29,6 +34,15 @@ export const RegisterPage = () => {
                   className="w-full flex flex-col py-4"
                   onSubmit={handleSubmit}
                 >
+                  {/* Nombre */}
+                  <input
+                    className="p-3 my-2 bg-gray-700 rounded"
+                    type="text"
+                    name="nombre"
+                    onChange={onInputChange}
+                    placeholder="Nombre"
+                    value={email}
+                  />
                   {/* Email */}
                   <input
                     autoComplete="email"
@@ -55,7 +69,7 @@ export const RegisterPage = () => {
                     type="password"
                     name="password2"
                     onChange={onInputChange}
-                    placeholder="Contraseña"
+                    placeholder="Repita la Contraseña"
                     value={password2}
                   />
                   <div>

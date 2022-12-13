@@ -1,14 +1,29 @@
 import { Link } from "react-router-dom";
-import { useForm } from "../../hooks/useForm";
 import { AuthLayout } from "../layout/AuthLayout";
+import { FcGoogle } from "react-icons/fc";
+import { useAuthStore, useForm } from "../../hooks";
+import { Loading } from "../components";
 
 export const LoginPage = () => {
 
   const { onInputChange, email, password } = useForm({ email: '', password: '' });
 
+  const { signInWithGoogle, status } = useAuthStore();
+
   const handleSubmit = (event) => {
     event.preventDefault();
   }
+
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  }
+  const activadorButtons = (status) => {
+    if (status === 'checking') {
+      return false;
+    }
+    return true;
+  }
+
 
   return (
     <>
@@ -20,11 +35,11 @@ export const LoginPage = () => {
             alt="bg"
           />
           <div className="bg-black/60 fixed top-0 left-0 w-full h-screen"></div>
-          <div className="fixed w-full px-4 py-24 z-50">
-            <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 text-white">
-              <div className="max-w-[320px] mx-auto py-16">
+          <div className="absolute w-full px-4 py-24 z-50">
+            <div className="max-w-[600px] h-[680px] mx-auto bg-black/75 text-white">
+              <div className="max-w-[400px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Iniciar sesión</h1>
-                <p className="text-[#DC2626] text-sm font-bold my-4">
+                <p className="text-[#E50608] text-sm font-extrabold my-4 text-center hover:cursor-help">
                   <span className="underline">Atencion</span>: Esta es una página copia de Netflix, no use sus credenciales reales.
                 </p>
                 <form
@@ -55,13 +70,40 @@ export const LoginPage = () => {
                     <input className="cursor-pointer accent-red-600" type="checkbox" id="checkbox1" />
                     <label className="ml-3" htmlFor="checkbox1">Mostrar Contraseña</label>
                   </div>
-                  <button className="bg-red-600 py-3 my-6 rounded font-bold">
-                    Iniciar sesión
+                  {/* Botones */}
+                  <button
+                    className={`${activadorButtons(status) 
+                      ?'bg-red-600 p-5 my-5 rounded font-bold' 
+                      :'bg-[#870a0a] p-5 my-5 rounded font-bold '} `
+                    }
+                    disabled={!activadorButtons(status)}
+                  >
+                    {
+                      activadorButtons(status)
+                        ? 'Iniciar sesión'
+                        : <Loading />
+                    }
                   </button>
-                  <hr className="bg-gray-700" />
+                  <button
+                    onClick={handleGoogleSignIn}
+                    className="bg-white text-black p-5 mb-4 rounded font-bold flex items-center border-white hover:border-[#E50608] justify-center min-w-[136.2px]"
+                  >
+                    {activadorButtons(status) && 'Iniciar con'}
+                    <FcGoogle className={`${activadorButtons(status) ? 'ml-1':'hidden'}`} />
+                    {activadorButtons(status) && 'oogle'}
+                    {!activadorButtons(status) && <Loading/>}
+                  </button>
+                  <button className="bg-transparent border border-white hover:border-[#E50608] p-5 rounded font-bold">
+                    {
+                      activadorButtons(status)
+                        ? 'Entrar como invitado'
+                        : <Loading />
+                    }
+                  </button>
+                  <hr className="bg-gray-700 mt-3" />
                   <p className="py-8 text-sm">
                     <span className="text-gray-600">Aún no tienes una cuenta de Fakeflix?, </span>
-                    <Link className="text-red-600 hover:underline" to='/auth/registro'>Registrate!</Link>
+                    <Link className="text-[#E50608] hover:underline" to='/auth/registro'>Registrate!</Link>
                   </p>
                 </form>
               </div>
