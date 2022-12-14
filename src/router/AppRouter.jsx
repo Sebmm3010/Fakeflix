@@ -5,6 +5,7 @@ import { useAuthStore } from "../hooks";
 
 export const AppRouter = () => {
   const { status, checkingAuth } = useAuthStore();
+  checkingAuth();
   return (
     <Routes>
       {

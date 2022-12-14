@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { createUserWithEmailAndPassword, 
-         GoogleAuthProvider,
-         signInWithPopup, 
-         updateProfile,
-         signInWithEmailAndPassword,
-         onAuthStateChanged
-        } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    GoogleAuthProvider,
+    signInWithPopup,
+    updateProfile,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+} from "firebase/auth";
 import { FirebaseAuth } from "../firebase/config";
 import { onChecking, onLogin, onLogout } from "../store/auth/authSlice";
 
@@ -22,9 +23,9 @@ export const useAuthStore = () => {
     const loginEmailandPassword = async ({ email, password }) => {
         dispatch(onChecking());
         try {
-            const { user }= await signInWithEmailAndPassword(FirebaseAuth, email, password);
-            const { displayName, uid }=user;
-            dispatch(onLogin({uid, displayName, email}));
+            const { user } = await signInWithEmailAndPassword(FirebaseAuth, email, password);
+            const { displayName, uid } = user;
+            dispatch(onLogin({ uid, displayName, email }));
         } catch (error) {
             const errorMsg = error.message;
             dispatch(onLogout({ errorMsg }));
@@ -64,16 +65,25 @@ export const useAuthStore = () => {
 
 
     // Checkear el estado y mantenerlo
-    const checkingAuth=()=>{
+    const checkingAuth = () => {
         useEffect(() => {
-          onAuthStateChanged(FirebaseAuth, async (user)=>{
-            if(!user) return dispatch(onLogout());
+            onAuthStateChanged(FirebaseAuth, async (user) => {
+                if (!user) return dispatch(onLogout());
 
-            const { displayName, email, uid }= user;
-            dispatch(onLogin({displayName, uid, email}));
-          })
+                const { displayName, email, uid } = user;
+                dispatch(onLogin({ displayName, uid, email }));
+            })
         }, []);
-        
+
+    }
+
+    const logoutFirestore = async () => {
+        try {
+            await FirebaseAuth.signOut();
+            dispatch(onLogout());
+        } catch (error) {
+            console.log(error);
+        }
     }
     return {
         /* Propiedades */
@@ -85,7 +95,8 @@ export const useAuthStore = () => {
         loginEmailandPassword,
         signInWithGoogle,
         registerWithEmailAndPassword,
-        checkingAuth
+        checkingAuth,
+        logoutFirestore
     }
 
 }

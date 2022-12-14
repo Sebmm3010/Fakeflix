@@ -3,7 +3,11 @@ import { useAuthStore } from "../../hooks";
 import { IoExitOutline } from "react-icons/io5";
 
 export const Navbar = () => {
-  const { user }= useAuthStore();
+  const { user, logoutFirestore }= useAuthStore();
+
+  const handleLogout=()=>{
+    logoutFirestore();
+  }
   return (
     <>
       <nav className="flex items-center justify-between p-4 z-[100] absolute w-full">
@@ -15,7 +19,10 @@ export const Navbar = () => {
           <button className="text-white pr-4">
             {user.displayName}
           </button>
-          <button className="bg-red-600 px-6 py-2 rounded flex items-center">
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 px-6 py-2 rounded flex items-center"
+          >
            <IoExitOutline className="mr-2"/> Salir
           </button>
         </div>
