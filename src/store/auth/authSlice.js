@@ -5,6 +5,7 @@ export const authSlice = createSlice({
     initialState: {
         status: 'not-authenticated',
         user: {
+            uid:'',
             displayName: '',
             email: ''
         },
@@ -14,6 +15,7 @@ export const authSlice = createSlice({
         onChecking: (state) => {
             state.status = 'checking';
             state.user = {
+                uid: '',
                 displayName: '',
                 email: ''
             };
@@ -22,6 +24,7 @@ export const authSlice = createSlice({
         onLogin: (state, { payload })=>{
             state.status = 'authenticated';
             state.user = {
+                uid: payload.uid,
                 displayName: payload.displayName,
                 email: payload.email
             };
@@ -30,6 +33,7 @@ export const authSlice = createSlice({
         onLogout: (state, { payload }) => {
             state.status = 'not-authenticated';
             state.user = {
+                uid: '',
                 displayName: '',
                 email: ''
             };

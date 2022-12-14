@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { getMovies } from "../../services/getmovies";
+import { getMovies } from "../../services/getMovies";
 import { RailItem } from "./";
 
 export const Rail = ({ titulo = '', options = {}, rowId='' }) => {

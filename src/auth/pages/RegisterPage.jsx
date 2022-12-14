@@ -1,17 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { activadorButtons, formValidations } from "../../helpers";
+import { useAuthStore } from "../../hooks/useAuthStore";
 import { useForm } from "../../hooks/useForm";
+import { Loading } from "../components";
 import { AuthLayout } from "../layout/AuthLayout";
+
+const formInit = { displayName: '', email: '', password: '', password2: '' }
 
 export const RegisterPage = () => {
   const { onInputChange,
-    nombre,
+    displayName,
     email,
     password,
-    password2
-  } = useForm({ nombre: '', email: '', password: '', password2: '' });
+    password2,
+    formState
+  } = useForm(formInit);
+
+  const [show, setShow] = useState(true);
+  const { status, registerWithEmailAndPassword }=useAuthStore()
+
+  const handleShowPassword = () => {
+    setShow(!show);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const { displayName, email, password, password2 } = formState;
+
+    if (!formValidations({ str: displayName, min: 3, type: 'normal' }) || !formValidations({ str: password, min: 6, type: 'normal' }))
+    return;
+    if (password !== password2) return;
+    if (!formValidations({str:email,type:'email'})) return;
+    registerWithEmailAndPassword(formState)
+
   }
   return (
     <>
@@ -28,7 +50,8 @@ export const RegisterPage = () => {
               <div className="max-w-[320px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Crea una cuenta</h1>
                 <p className="text-[#DC2626] text-sm font-bold my-4">
-                  <span className="underline">Atencion</span>: Esta es una página copia de Netflix, no use sus credenciales reales.
+                  <span className="underline">Atencion</span>:<br /> *El nombre debe tener minimo 3 caracteres sin espacios. <br />
+                  *La Contraseña debe tener como minimo 6 caracteres sin espacios.
                 </p>
                 <form
                   className="w-full flex flex-col py-4"
@@ -38,10 +61,10 @@ export const RegisterPage = () => {
                   <input
                     className="p-3 my-2 bg-gray-700 rounded"
                     type="text"
-                    name="nombre"
+                    name="displayName"
                     onChange={onInputChange}
                     placeholder="Nombre"
-                    value={email}
+                    value={displayName}
                   />
                   {/* Email */}
                   <input
@@ -57,7 +80,11 @@ export const RegisterPage = () => {
                   {/* Contraseñas */}
                   <input
                     className="p-3 my-2 bg-gray-700 rounded"
-                    type="password"
+                    type={
+                      show
+                        ? 'password'
+                        : 'text'
+                    }
                     name="password"
                     onChange={onInputChange}
                     placeholder="Contraseña"
@@ -66,22 +93,42 @@ export const RegisterPage = () => {
 
                   <input
                     className="p-3 my-2 bg-gray-700 rounded"
-                    type="password"
+                    type={
+                      show
+                        ? 'password'
+                        : 'text'
+                    }
                     name="password2"
                     onChange={onInputChange}
                     placeholder="Repita la Contraseña"
                     value={password2}
                   />
                   <div>
-                    <input className="cursor-pointer accent-red-600" type="checkbox" id="checkbox1" />
+                    <input
+                      onChange={handleShowPassword}
+                      className="cursor-pointer accent-red-600"
+                      type="checkbox"
+                      id="checkbox1"
+                    />
                     <label className="ml-3" htmlFor="checkbox1">Mostrar Contraseña</label>
                   </div>
-                  <button className="bg-red-600 py-3 my-6 rounded font-bold">
-                    Crear cuenta
+                  {/* Botone */}
+                  <button
+                    className={`${activadorButtons(status)
+                      ? 'bg-red-600 p-5 my-5 rounded font-bold'
+                      : 'bg-[#870a0a] p-5 my-5 rounded font-bold '} `
+                    }
+                    disabled={!activadorButtons(status)}
+                  >
+                    {
+                      activadorButtons(status)
+                        ? 'Crear cuenta'
+                        : <Loading />
+                    }
                   </button>
                   <hr className="bg-gray-700" />
                   <p className="py-8 text-sm">
-                    <span className="text-gray-600">Ya cuentas con una cuenta de Fakeflix?, </span>
+                    <span className="text-gray-600">Ya tienes cuenta de Fakeflix?, </span>
                     <Link className="text-red-600 hover:underline" to='/auth/registro'>Iniciar sesión</Link>
                   </p>
                 </form>
