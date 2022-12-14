@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { createUserWithEmailAndPassword, 
          GoogleAuthProvider,
          signInWithPopup, 
          updateProfile,
-         signInWithEmailAndPassword
+         signInWithEmailAndPassword,
+         onAuthStateChanged
         } from "firebase/auth";
 import { FirebaseAuth } from "../firebase/config";
 import { onChecking, onLogin, onLogout } from "../store/auth/authSlice";
@@ -60,6 +62,19 @@ export const useAuthStore = () => {
         }
     }
 
+
+    // Checkear el estado y mantenerlo
+    const checkingAuth=()=>{
+        useEffect(() => {
+          onAuthStateChanged(FirebaseAuth, async (user)=>{
+            if(!user) return dispatch(onLogout());
+
+            const { displayName, email, uid }= user;
+            dispatch(onLogin({displayName, uid, email}));
+          })
+        }, []);
+        
+    }
     return {
         /* Propiedades */
         status,
@@ -69,7 +84,8 @@ export const useAuthStore = () => {
         /* Metodos */
         loginEmailandPassword,
         signInWithGoogle,
-        registerWithEmailAndPassword
+        registerWithEmailAndPassword,
+        checkingAuth
     }
 
 }
