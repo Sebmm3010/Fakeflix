@@ -7,12 +7,13 @@ import { activadorButtons } from "../../helpers";
 
 export const LoginPage = () => {
 
-  const { onInputChange, email, password } = useForm({ email: '', password: '' });
+  const { onInputChange, email, password,formState } = useForm({ email: '', password: '' });
 
-  const { signInWithGoogle, status } = useAuthStore();
+  const { signInWithGoogle, loginEmailandPassword, status } = useAuthStore();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    loginEmailandPassword(formState);
   }
 
   const handleGoogleSignIn = () => {

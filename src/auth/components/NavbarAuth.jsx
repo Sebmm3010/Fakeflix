@@ -9,14 +9,16 @@ export const NavbarAuth = () => {
         </Link>
 
         <div>
-          <button className="text-white pr-4">
-            <Link to='/auth/registro'>Regístrate</Link>
-          </button>
-          <button className="bg-red-600 px-6 py-2 rounded">
-            <Link to='/auth/login'>
+          <Link to='/auth/registro'>
+            <button className="text-white pr-4">
+              Regístrate
+            </button>
+          </Link>
+          <Link to='/auth/login'>
+            <button className="bg-red-600 px-6 py-2 rounded">
               Iniciar sesión
-            </Link>
-          </button>
+            </button>      
+          </Link>
         </div>
       </nav>
     </>
