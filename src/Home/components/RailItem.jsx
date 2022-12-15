@@ -1,10 +1,21 @@
 import { useState } from 'react';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-
+import { useMovieStore } from '../../hooks';
 export const RailItem = ({ movie }) => {
     const [like, setLike] = useState(false);
-    const handleLikes = () => {
-        setLike(!like);
+    // const handleLikes = () => {
+    // }
+
+    const { addToFavorites }=useMovieStore();
+
+    const handleAdd=()=>{
+        setLike(true);
+        const movieDB={
+            movieId:movie.id,
+            titulo: movie.title,
+            img: movie.backdrop_path
+        }
+        addToFavorites(movieDB);
     }
 
     const likes = 'absolute top-4 left-4 text-gray-300';
@@ -40,9 +51,9 @@ export const RailItem = ({ movie }) => {
                                 ">
                         {movie.title}
                     </p>
-                    <p onClick={handleLikes}>
+                    <p>
                         {
-                            like ? <FaHeart className={likes} /> : <FaRegHeart className={likes} />
+                            like ? <FaHeart className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} />
                         }
                     </p>
                 </div>

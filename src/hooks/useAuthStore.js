@@ -12,7 +12,6 @@ import { FirebaseAuth } from "../firebase/config";
 import { onChecking, onLogin, onLogout } from "../store";
 import { notifications } from "../helpers";
 
-
 const googleProvider = new GoogleAuthProvider();
 
 const errors = {
@@ -94,7 +93,7 @@ export const useAuthStore = () => {
 
                 const { displayName, email, uid } = user;
                 dispatch(onLogin({ displayName, uid, email }));
-            })
+            });
         }, []);
 
     }

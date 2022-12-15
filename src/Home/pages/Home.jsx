@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Hero, Navbar, Rail } from "../components";
 import { HomeLayout } from "../layout/HomeLayout";
 
-export const Home = () => {
+export const Home = memo(() => {
   return (
     <>
       <HomeLayout>
@@ -15,4 +16,4 @@ export const Home = () => {
       </HomeLayout>
     </>
   )
-}
+})
