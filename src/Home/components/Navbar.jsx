@@ -4,9 +4,12 @@ import { IoExitOutline } from "react-icons/io5";
 import { separaStrings } from "../../helpers";
 
 export const Navbar = () => {
-  const { user, logoutFirestore } = useAuthStore();
+  const { user, logoutFirestore, logoutInvitado } = useAuthStore();
 
   const handleLogout = () => {
+    if(user.uid==='12345'){
+      logoutInvitado();
+    }
     logoutFirestore();
   }
   return (

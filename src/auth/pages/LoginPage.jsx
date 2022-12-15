@@ -14,7 +14,8 @@ export const LoginPage = () => {
           status, 
           handleShowPassword, 
           handleLoginSubmit, 
-          handleGoogleSignIn 
+          handleGoogleSignIn,
+          handleInvitado
         } = useAuthComponents(formState);
 
   return (
@@ -72,8 +73,8 @@ export const LoginPage = () => {
                       id="checkbox1" />
                     <label className="ml-3" htmlFor="checkbox1">Mostrar Contraseña</label>
                   </div>
-                  {/* Botones */}
 
+                  {/* Botones */}
                   <button
                     className={`${activadorButtons(status)
                       ? 'bg-red-600 p-5 my-5 rounded font-bold'
@@ -98,6 +99,7 @@ export const LoginPage = () => {
                     {!activadorButtons(status) && <Loading />}
                   </button>
                   <button
+                    onClick={handleInvitado}
                     className="bg-transparent border border-white hover:border-[#E50608] p-5 rounded font-bold"
                     disabled={!activadorButtons(status)}
                   >

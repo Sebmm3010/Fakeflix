@@ -57,11 +57,17 @@ export const useAuthStore = () => {
             dispatch(onLogin({ uid, displayName, email }));
         } catch (error) {
             const errorMsg = error.message;
-            notifications({ type: 'error', msg: '500: No se iniciar sesión' });
+            notifications({ type: 'error', msg: '500: No se pudo iniciar sesión' });
             dispatch(onLogout({ errorMsg }));
         }
     }
 
+
+    // Iniciar sesion como invitado
+    const singInInvitado=()=>{
+        dispatch(onChecking());
+        dispatch(onLogin({uid:'12345', displayName:'Invitado', email:''}));
+    }
 
     // Regitrarse
     const registerWithEmailAndPassword = async ({ email, password, displayName }) => {
@@ -102,6 +108,12 @@ export const useAuthStore = () => {
             console.log(error);
         }
     }
+
+    // Logout de invitado
+    const logoutInvitado=()=>{
+        dispatch(onLogout());
+    }
+
     return {
         /* Propiedades */
         status,
@@ -111,9 +123,11 @@ export const useAuthStore = () => {
         /* Metodos */
         loginEmailandPassword,
         signInWithGoogle,
+        singInInvitado,
         registerWithEmailAndPassword,
         checkingAuth,
-        logoutFirestore
+        logoutFirestore,
+        logoutInvitado
     }
 
 }

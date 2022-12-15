@@ -8,8 +8,9 @@ export const useAuthComponents = (formState) => {
     const {
         status,
         registerWithEmailAndPassword,
-        signInWithGoogle,
         loginEmailandPassword,
+        signInWithGoogle,
+        singInInvitado,
     } = useAuthStore();
 
 
@@ -21,6 +22,8 @@ export const useAuthComponents = (formState) => {
     }
 
     /* Logica del login */
+
+    // Handler del email y password
     const handleLoginSubmit = (event) => {
         event.preventDefault();
         const { email, password } = formState;
@@ -37,9 +40,16 @@ export const useAuthComponents = (formState) => {
 
         loginEmailandPassword(formState);
     }
-
-    const handleGoogleSignIn = () => {
+    // Handler de google
+    const handleGoogleSignIn = (event) => {
+        event.preventDefault();
         signInWithGoogle();
+    }
+
+    // Handler del invitado
+    const handleInvitado=(event)=>{
+        event.preventDefault();
+        singInInvitado();
     }
 
     /* Logica del Registro */
@@ -73,7 +83,8 @@ export const useAuthComponents = (formState) => {
         handleShowPassword,
         handleRegisterSubmit,
         handleLoginSubmit,
-        handleGoogleSignIn
+        handleGoogleSignIn,
+        handleInvitado
     }
 
 }
