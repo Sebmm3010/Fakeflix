@@ -26,11 +26,11 @@ export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
   return (
     <>
       <h2 className="text-white font-bold md:text-xl p-4">{titulo}</h2>
-      <div className="relative flex items-center group">
+      <div className="relative flex items-center group animate__animated animate__fadeIn animate__slow">
         <MdChevronLeft
+          onClick={ slideLeft }
           className={sliders + ' left-0'}
           size={40}
-          onClick={ slideLeft }
         />
         <div id={`slider${rowId}`} className="w-full h-full overflow-x-scroll whitespace-nowrap scrollbar-hide scroll-smooth relative">
           {

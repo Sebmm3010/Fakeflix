@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { activadorButtons, formValidations } from "../../helpers";
-import { useAuthStore } from "../../hooks/useAuthStore";
+import { activadorButtons } from "../../helpers";
 import { useForm } from "../../hooks/useForm";
 import { Loading } from "../components";
+import { useAuthComponents } from "../hooks/useAuthComponents";
 import { AuthLayout } from "../layout/AuthLayout";
 
-const formInit = { displayName: '', email: '', password: '', password2: '' }
+const formInit = { displayName: '', email: '', password: '', password2: '' };
 
 export const RegisterPage = () => {
   const { onInputChange,
@@ -17,24 +16,12 @@ export const RegisterPage = () => {
     formState
   } = useForm(formInit);
 
-  const [show, setShow] = useState(true);
-  const { status, registerWithEmailAndPassword }=useAuthStore()
+  const { show, 
+          status,
+          handleShowPassword, 
+          handleRegisterSubmit}=useAuthComponents(formState);
 
-  const handleShowPassword = () => {
-    setShow(!show);
-  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const { displayName, email, password, password2 } = formState;
-
-    if (!formValidations({ str: displayName, min: 3, type: 'normal' }) || !formValidations({ str: password, min: 6, type: 'normal' }))
-    return;
-    if (password !== password2) return;
-    if (!formValidations({str:email,type:'email'})) return;
-    registerWithEmailAndPassword(formState)
-
-  }
   return (
     <>
       <AuthLayout>
@@ -46,7 +33,7 @@ export const RegisterPage = () => {
           />
           <div className="bg-black/60 fixed top-0 left-0 w-full h-screen"></div>
           <div className="absolute w-full px-4 py-24 z-50">
-            <div className="max-w-[450px] h-[700px] mx-auto bg-black/75 text-white">
+            <div className="max-w-[450px] h-[700px] mx-auto bg-black/75 text-white animate__animated animate__fadeInUp animate__fast">
               <div className="max-w-[320px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Crea una cuenta</h1>
                 <p className="text-[#DC2626] text-sm font-bold my-4">
@@ -55,7 +42,7 @@ export const RegisterPage = () => {
                 </p>
                 <form
                   className="w-full flex flex-col py-4"
-                  onSubmit={handleSubmit}
+                  onSubmit={handleRegisterSubmit}
                 >
                   {/* Nombre */}
                   <input

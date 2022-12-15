@@ -10,16 +10,23 @@ import {
 } from "firebase/auth";
 import { FirebaseAuth } from "../firebase/config";
 import { onChecking, onLogin, onLogout } from "../store/auth/authSlice";
+import { notifications } from "../helpers";
 
 
-const googleProvider = new GoogleAuthProvider()
+const googleProvider = new GoogleAuthProvider();
+
+const errors = {
+    noUser: "Firebase: Error (auth/user-not-found).",
+
+}
+
 export const useAuthStore = () => {
 
     const { status, user, errorMessage } = useSelector(state => state.auth);
 
     const dispatch = useDispatch();
 
-    // Iniciar sesion normal.
+    // Iniciar sesion email y password.
     const loginEmailandPassword = async ({ email, password }) => {
         dispatch(onChecking());
         try {
@@ -28,6 +35,13 @@ export const useAuthStore = () => {
             dispatch(onLogin({ uid, displayName, email }));
         } catch (error) {
             const errorMsg = error.message;
+
+            if (errorMsg === errors.noUser) {
+                notifications({ type: 'error', msg: 'No hay usuario con ese email' });
+            }else{
+                notifications({ type: 'error', msg: '404: No se validaron los datos' });
+            }
+
             dispatch(onLogout({ errorMsg }));
         }
 
@@ -43,6 +57,7 @@ export const useAuthStore = () => {
             dispatch(onLogin({ uid, displayName, email }));
         } catch (error) {
             const errorMsg = error.message;
+            notifications({ type: 'error', msg: '500: No se iniciar sesión' });
             dispatch(onLogout({ errorMsg }));
         }
     }
@@ -59,6 +74,7 @@ export const useAuthStore = () => {
 
         } catch (error) {
             const errorMsg = error.message;
+            notifications({ type: 'error', msg: '400: no se puso registrar al usuario' });
             dispatch(onLogout({ errorMsg }));
         }
     }
@@ -76,7 +92,8 @@ export const useAuthStore = () => {
         }, []);
 
     }
-
+    
+    //Logout firestore 
     const logoutFirestore = async () => {
         try {
             await FirebaseAuth.signOut();

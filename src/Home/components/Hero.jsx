@@ -15,7 +15,7 @@ export const Hero = () => {
 
 
     return (
-        <div className="w-full h-[550px] text-white">
+        <div className="w-full h-[550px] text-white animate__animated animate__fadeIn animate__slow">
             <div className="w-full h-full">
                 <div className="absolute w-full h-[550px] bg-gradient-to-r from-black"></div>
                 <img
