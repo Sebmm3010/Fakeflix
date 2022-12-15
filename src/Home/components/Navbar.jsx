@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 import { useAuthStore } from "../../hooks";
 import { IoExitOutline } from "react-icons/io5";
+import { separaStrings } from "../../helpers";
 
 export const Navbar = () => {
-  const { user, logoutFirestore }= useAuthStore();
+  const { user, logoutFirestore } = useAuthStore();
 
-  const handleLogout=()=>{
+  const handleLogout = () => {
     logoutFirestore();
   }
   return (
@@ -17,13 +18,13 @@ export const Navbar = () => {
 
         <div className="flex">
           <button className="text-white pr-4">
-            {user.displayName}
+            {separaStrings(user.displayName)}
           </button>
           <button
             onClick={handleLogout}
             className="bg-red-600 px-6 py-2 rounded flex items-center"
           >
-           <IoExitOutline className="mr-2"/> Salir
+            <IoExitOutline className="mr-2" /> Salir
           </button>
         </div>
       </nav>
