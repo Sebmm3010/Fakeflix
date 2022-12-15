@@ -9,7 +9,7 @@ import {
     onAuthStateChanged
 } from "firebase/auth";
 import { FirebaseAuth } from "../firebase/config";
-import { onChecking, onLogin, onLogout } from "../store/auth/authSlice";
+import { onChecking, onLogin, onLogout } from "../store";
 import { notifications } from "../helpers";
 
 
