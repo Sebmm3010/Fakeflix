@@ -32,7 +32,7 @@ export const LoginPage = () => {
               <div className="max-w-[400px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Iniciar sesión</h1>
                 <p className="text-[#E50608] text-sm font-extrabold my-4 text-center hover:cursor-help">
-                  <span className="underline">Atencion</span>: Esta es una página copia de Netflix, no use sus credenciales reales.
+                  <span className="underline">Atencion</span>: Esta es una página parodia de Netflix, no use sus credenciales reales.
                 </p>
                 <form
                   onSubmit={handleLoginSubmit}
