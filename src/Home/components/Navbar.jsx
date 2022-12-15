@@ -7,7 +7,7 @@ export const Navbar = () => {
   const { user, logoutFirestore, logoutInvitado } = useAuthStore();
 
   const handleLogout = () => {
-    if(user.uid==='12345'){
+    if (user.uid === '12345') {
       logoutInvitado();
     }
     logoutFirestore();
@@ -19,10 +19,12 @@ export const Navbar = () => {
           <h1 className="text-red-600 text-4xl font-bold cursor-pointer logo">FAKEFLIX</h1>
         </Link>
 
-        <div className="flex">
-          <button className="text-white pr-4">
-            {separaStrings(user.displayName)}
-          </button>
+        <div className="flex items-center">
+          <Link to='/user'>
+            <button className="text-white pr-4">
+              {separaStrings(user.displayName)}
+            </button>
+          </Link>
           <button
             onClick={handleLogout}
             className="bg-red-600 px-6 py-2 rounded flex items-center"
