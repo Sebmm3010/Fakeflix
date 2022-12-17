@@ -10,14 +10,17 @@ export const movieSlice = createSlice({
             state.movies.push(payload);
         },
         setMovies: (state, { payload }) => {
-            state.movies=payload;
+            state.movies = payload;
         },
-        removeMovie: (state) => {
-
+        clearMovies: (state) => {
+            state.movies = [];
+        },
+        removeMovie: (state, { payload }) => {
+            state.movies = state.movies.filter(movie => movie.id !== payload);
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { addMovie, setMovies, removeMovie } = movieSlice.actions;
+export const { addMovie, setMovies, clearMovies, removeMovie } = movieSlice.actions;

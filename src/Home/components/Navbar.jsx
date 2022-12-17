@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom"
-import { useAuthStore } from "../../hooks";
+import { useAuthStore, useMovieStore } from "../../hooks";
 import { IoExitOutline } from "react-icons/io5";
 import { separaStrings } from "../../helpers";
 
 export const Navbar = () => {
   const { user, logoutFirestore, logoutInvitado } = useAuthStore();
+  const { logutClearMovies } = useMovieStore();
 
   const handleLogout = () => {
     if (user.uid === '12345') {
+      logutClearMovies();
       logoutInvitado();
     }
+    logutClearMovies();
     logoutFirestore();
   }
   return (

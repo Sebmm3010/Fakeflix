@@ -1,22 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useMovieStore } from '../../hooks';
 export const RailItem = ({ movie }) => {
+
+
     const [like, setLike] = useState(false);
-    // const handleLikes = () => {
-    // }
 
-    const { addToFavorites }=useMovieStore();
+    const { moviesRedux, addToFavorites, borrarMovie } = useMovieStore();
 
-    const handleAdd=()=>{
+    const handleAdd = () => {
         setLike(true);
-        const movieDB={
-            movieId:movie.id,
+        const movieDB = {
+            id: '',
+            movieId: movie.id,
             titulo: movie.title,
             img: movie.backdrop_path
         }
         addToFavorites(movieDB);
     }
+
+    const handleDelete = () => {
+        const movieSelected = moviesRedux.filter(movieFb => {
+            if (movieFb.movieId === movie.id) {
+                return movieFb;
+            }
+        });
+        borrarMovie(movieSelected[0].id);
+        setLike(false);
+    }
+
+    useEffect(() => {
+        moviesRedux?.map(movieR => {
+            movieR.movieId === movie.id
+                && setLike(true)
+        });
+    }, [moviesRedux]);
+
 
     const likes = 'absolute top-4 left-4 text-gray-300';
     return (
@@ -53,7 +72,7 @@ export const RailItem = ({ movie }) => {
                     </p>
                     <p>
                         {
-                            like ? <FaHeart className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} />
+                            like ? <FaHeart onClick={handleDelete} className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} />
                         }
                     </p>
                 </div>

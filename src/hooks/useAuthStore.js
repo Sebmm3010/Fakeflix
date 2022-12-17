@@ -36,7 +36,7 @@ export const useAuthStore = () => {
             const errorMsg = error.message;
 
             if (errorMsg === errors.noUser) {
-                notifications({ type: 'error', msg: 'No hay usuario con ese email' });
+                notifications({ type: 'error', msg: 'No se encontro usuario con ese email' });
             }else{
                 notifications({ type: 'error', msg: '404: No se validaron los datos' });
             }
