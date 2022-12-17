@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useMemo, useState } from 'react';
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { useMovieStore } from '../../hooks';
 export const RailItem = ({ movie }) => {
 
 
-    const [like, setLike] = useState(false);
+    const { moviesRedux, isSaving, addToFavorites, borrarMovie } = useMovieStore();
 
-    const { moviesRedux, addToFavorites, borrarMovie } = useMovieStore();
+    const movieDB = {
+        id: '',
+        movieId: movie.id,
+        titulo: movie.title,
+        img: movie.backdrop_path,
+    }
 
     const handleAdd = () => {
-        setLike(true);
-        const movieDB = {
-            id: '',
-            movieId: movie.id,
-            titulo: movie.title,
-            img: movie.backdrop_path
-        }
         addToFavorites(movieDB);
     }
 
@@ -26,15 +24,16 @@ export const RailItem = ({ movie }) => {
             }
         });
         borrarMovie(movieSelected[0].id);
-        setLike(false);
     }
 
-    useEffect(() => {
-        moviesRedux?.map(movieR => {
-            movieR.movieId === movie.id
-                && setLike(true)
-        });
-    }, [moviesRedux]);
+    // useMemo(() => {
+    //     moviesRedux.length === 0 && setLike(false);
+    //     moviesRedux.map(movieR => {
+    //         if (movieR.movieId === movieDB.movieId) {
+    //             setLike(true);
+    //         }
+    //     });
+    // }, [moviesRedux]);
 
 
     const likes = 'absolute top-4 left-4 text-gray-300';
@@ -70,11 +69,14 @@ export const RailItem = ({ movie }) => {
                                 ">
                         {movie.title}
                     </p>
-                    <p>
-                        {
-                            like ? <FaHeart onClick={handleDelete} className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} />
+                    <button disabled={isSaving}>
+                        {   moviesRedux.length>0?
+                            moviesRedux.map((movieR, i)=>(
+                                movieR.movieId === movie.id ? <FaHeart key={i} onClick={handleDelete} className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} key={i+3} />
+                            ))
+                            : <FaRegHeart onClick={handleAdd} className={likes} />
                         }
-                    </p>
+                    </button>
                 </div>
             </div>
         </>

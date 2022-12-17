@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { getMovies } from "../../services/getMovies";
 import { RailItem } from "./";
@@ -7,11 +7,13 @@ export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
 
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      setMovies(await getMovies(options));
-    })();
-  }, [options]);
+  useMemo(async () => setMovies(await getMovies(options)), [options]);
+  
+  // useEffect(() => {
+  //   (async () => {
+  //     setMovies(await getMovies(options));
+  //   })();
+  // }, [options]);
 
   const slideLeft = () => {
     const slider = document.getElementById('slider'+rowId);

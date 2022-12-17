@@ -1,21 +1,23 @@
 import { collection, deleteDoc, doc, getDocs, orderBy, setDoc } from "firebase/firestore/lite";
 import { useDispatch, useSelector } from "react-redux"
 import { FirebaseDB } from "../firebase/config";
-import { addMovie, clearMovies, removeMovie, setMovies } from "../store";
+import { addMovie, clearMovies, notSaving, removeMovie, saving, setFavorites } from "../store";
 import { useAuthStore } from "./";
 
 
 export const useMovieStore = () => {
     const { user } = useAuthStore();
     const { uid } = user;
-    const { movies } = useSelector(state => state.movies);
+    const { movies, isSaving } = useSelector(state => state.movies);
     const dispatch = useDispatch();
 
     const addToFavorites = async (movie) => {
+        dispatch(saving());
         const newDoc = doc(collection(FirebaseDB, `${uid}/favorites/movies`));
         movie.id= newDoc.id;
         await setDoc(newDoc, movie);
         dispatch(addMovie(movie));
+        dispatch(notSaving())
     }
 
     const cargarFavorites = async () => {
@@ -25,14 +27,15 @@ export const useMovieStore = () => {
         docs.forEach(doc => {
             movies.push(doc.data());
         });
-        dispatch(setMovies(movies));
+        dispatch(setFavorites(movies));
     }
 
     const borrarMovie= async(id)=>{
-
+        dispatch(saving());
         const docRef = doc(FirebaseDB, `${uid}/favorites/movies/${id}`);
         await deleteDoc(docRef);
         dispatch(removeMovie(id));
+        dispatch(notSaving());
     }
 
     const logutClearMovies=()=>{
@@ -42,6 +45,7 @@ export const useMovieStore = () => {
     return {
         /* Propiedades */
         moviesRedux:movies,
+        isSaving,
 
         /* Metodos */
         addToFavorites,

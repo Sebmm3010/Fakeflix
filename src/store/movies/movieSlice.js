@@ -3,13 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 export const movieSlice = createSlice({
     name: 'movie',
     initialState: {
+        isSaving:false,
         movies: []
     },
     reducers: {
         addMovie: (state, { payload }) => {
             state.movies.push(payload);
         },
-        setMovies: (state, { payload }) => {
+        setFavorites: (state, { payload }) => {
             state.movies = payload;
         },
         clearMovies: (state) => {
@@ -17,10 +18,16 @@ export const movieSlice = createSlice({
         },
         removeMovie: (state, { payload }) => {
             state.movies = state.movies.filter(movie => movie.id !== payload);
+        },
+        saving:(state)=>{
+            state.isSaving=true;
+        },
+        notSaving: (state) => {
+            state.isSaving = false;
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { addMovie, setMovies, clearMovies, removeMovie } = movieSlice.actions;
+export const { addMovie, setFavorites, clearMovies, removeMovie, saving, notSaving} = movieSlice.actions;
