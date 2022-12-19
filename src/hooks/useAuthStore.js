@@ -37,7 +37,7 @@ export const useAuthStore = () => {
 
             if (errorMsg === errors.noUser) {
                 notifications({ type: 'error', msg: 'No se encontro usuario con ese email' });
-            }else{
+            } else {
                 notifications({ type: 'error', msg: '404: No se validaron los datos' });
             }
 
@@ -63,9 +63,9 @@ export const useAuthStore = () => {
 
 
     // Iniciar sesion como invitado
-    const singInInvitado=()=>{
+    const singInInvitado = () => {
         dispatch(onChecking());
-        dispatch(onLogin({uid:'12345', displayName:'Invitado', email:''}));
+        dispatch(onLogin({ uid: '001guess', displayName: 'Invitado', email: '' }));
     }
 
     // Regitrarse
@@ -88,6 +88,7 @@ export const useAuthStore = () => {
     // Checkear el estado y mantenerlo
     const checkingAuth = () => {
         useEffect(() => {
+            if(localStorage.getItem('invitado')) return;
             onAuthStateChanged(FirebaseAuth, async (user) => {
                 if (!user) return dispatch(onLogout());
 
@@ -97,7 +98,7 @@ export const useAuthStore = () => {
         }, []);
 
     }
-    
+
     //Logout firestore 
     const logoutFirestore = async () => {
         try {
@@ -109,7 +110,8 @@ export const useAuthStore = () => {
     }
 
     // Logout de invitado
-    const logoutInvitado=()=>{
+    const logoutInvitado = () => {
+        localStorage.removeItem('invitado');
         dispatch(onLogout());
     }
 

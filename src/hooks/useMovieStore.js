@@ -21,7 +21,7 @@ export const useMovieStore = () => {
     }
 
     const cargarFavorites = async () => {
-        if (!uid) return;
+        if (!uid || uid === '001guess') return;
         const movies=[];
         const docs = await getDocs(collection(FirebaseDB, `${uid}/favorites/movies`), orderBy('date', 'desc'));
         docs.forEach(doc => {

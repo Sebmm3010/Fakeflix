@@ -8,13 +8,14 @@ export const Navbar = () => {
   const { logutClearMovies } = useMovieStore();
 
   const handleLogout = () => {
-    if (user.uid === '12345') {
+    if (user.uid === '001guess') {
       logutClearMovies();
       logoutInvitado();
     }
     logutClearMovies();
     logoutFirestore();
   }
+  const name = separaStrings(user.displayName);
   return (
     <>
       <nav className="flex items-center justify-between p-4 z-[100] absolute w-full">
@@ -25,7 +26,7 @@ export const Navbar = () => {
         <div className="flex items-center">
           <Link to='/user'>
             <button className="text-white pr-4">
-              {separaStrings(user.displayName)}
+              {name? name: user.displayName}
             </button>
           </Link>
           <button
