@@ -36,10 +36,10 @@ export const RailItem = ({ movie }) => {
     // }, [moviesRedux]);
 
 
-    const likes = 'absolute top-4 left-4 text-gray-300';
+    const likes = `absolute top-6 left-4 text-gray-300 animate__animated ${isSaving ? 'animate__flipOutY' : 'animate__flipInY'} animate__faster`;
     return (
         <>
-            <div key={movie.id} className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
+            <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
                 <img
                     className="w-full h-full block"
                     src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
