@@ -23,7 +23,7 @@ export const RailItem = ({ movie }) => {
                 return movieFb;
             }
         });
-        borrarMovie(movieSelected[0].id);
+        borrarMovie(movieSelected[0]);
     }
 
     // useMemo(() => {
@@ -70,11 +70,12 @@ export const RailItem = ({ movie }) => {
                         {movie.title}
                     </p>
                     <button disabled={isSaving}>
-                        {   moviesRedux.length>0?
-                            moviesRedux.map((movieR, i)=>(
-                                movieR.movieId === movie.id ? <FaHeart key={i} onClick={handleDelete} className={likes} /> : <FaRegHeart onClick={handleAdd} className={likes} key={i+3} />
-                            ))
-                            : <FaRegHeart onClick={handleAdd} className={likes} />
+                        {
+                            moviesRedux.length > 0 ?
+                                moviesRedux.map((movieR) => (
+                                    movieR.movieId === movie.id ? <FaHeart key={JSON.stringify(movieR)} onClick={handleDelete} className={likes+' borrar'} /> : <FaRegHeart onClick={handleAdd} className={likes+' agregar'} key={JSON.stringify(movieR)} />
+                                ))
+                                : <FaRegHeart onClick={handleAdd} className={likes} />
                         }
                     </button>
                 </div>

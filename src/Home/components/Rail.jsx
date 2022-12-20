@@ -34,11 +34,12 @@ export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
           className={sliders + ' left-0'}
           size={40}
         />
-        <div id={`slider${rowId}`} className="w-full h-full overflow-x-scroll whitespace-nowrap scrollbar-hide scroll-smooth relative">
+        <div id={`slider${rowId}`} className="w-full h-full overflow-x-scroll overflow-y-hidden whitespace-nowrap scrollbar-hide scroll-smooth relative">
           {
             movies?.map((movie) => (
               <RailItem key={movie.id} movie={movie} />
-            ))}
+            ))
+          }
         </div>
         <MdChevronRight
           className={sliders + ' right-0'}

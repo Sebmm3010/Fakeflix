@@ -25,7 +25,7 @@ export const Navbar = () => {
 
         <div className="flex items-center">
           <Link to='/user'>
-            <button className="text-white pr-4">
+            <button className="text-white pr-4 capitalize">
               {name? name: user.displayName}
             </button>
           </Link>

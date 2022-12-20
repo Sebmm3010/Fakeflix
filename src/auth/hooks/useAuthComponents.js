@@ -69,7 +69,7 @@ export const useAuthComponents = (formState) => {
         }
         if (password !== password2) {
 
-            notifications({ type: 'warning', msg: 'Laas constraseñas deben ser iguales' });
+            notifications({ type: 'warning', msg: 'Las constraseñas deben ser iguales' });
             return;
         }
         registerWithEmailAndPassword(formState);

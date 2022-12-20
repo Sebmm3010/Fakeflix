@@ -1,21 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const init = localStorage.getItem('invitado') !==null
-    ? { status: 'authenticated', user: JSON.parse(localStorage.getItem('invitado')), errorMessage: null }
-    : { status: 'not-authenticated', user: { uid: '', displayName: '', email: '' }, errorMessage: null, }
+    ? { status:'authenticated', user: JSON.parse(localStorage.getItem('invitado')) }
+    : { status:'not-authenticated', user: { uid: '', displayName: '', email: '' } }
 
 export const authSlice = createSlice({
     name: 'auth',
-    initialState: init,
-    // {
-    //     status: 'not-authenticated',
-    //     user: {
-    //         uid: '',
-    //         displayName: '',
-    //         email: ''
-    //     },
-    //     errorMessage: null,
-    // },
+    initialState: {
+        status: init.status,
+        user: init.user,
+        errorMessage: null,
+    },
     reducers: {
         onChecking: (state) => {
             state.status = 'checking';
