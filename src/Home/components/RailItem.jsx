@@ -2,7 +2,7 @@ import { useMovieStore } from "../../hooks";
 
 export const RailItem = ({ movie }) => {
 
-    const { activeMovie ,abrirModal } = useMovieStore();
+    const { abrirModal } = useMovieStore();
 
     const hanldeOpenModal = () => {
         abrirModal(movie);
@@ -13,8 +13,8 @@ export const RailItem = ({ movie }) => {
             <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
                 <img
                     className="w-full h-full block"
-                    src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`}
-                    alt={movie.title}
+                    src={`https://image.tmdb.org/t/p/w500/${movie.backdrop_path || movie.img}`}
+                    alt={movie.title || movie.titulo}
                 />
                 <div className="absolute 
                                 top-0 
@@ -39,7 +39,7 @@ export const RailItem = ({ movie }) => {
                                 h-full
                                 text-center
                                 ">
-                        {movie.title}
+                        {movie.title || movie.titulo}
                     </p>
                 </div>
             </div>

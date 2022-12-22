@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
 import { BsBoxArrowRight } from "react-icons/bs";
+import { useLocation } from "react-router-dom";
 import { trunckarTexto } from "../../helpers";
-import { useMovieStore } from "../../hooks";
+import { useAuthStore, useMovieStore } from "../../hooks";
 import { AddButton } from "./AddButton";
 import { DeleteButton } from "./DeleteButton";
 
 
 export const Modal = () => {
 
-  const { isSaving, moviesRedux, activeMovie, cerrarModal } = useMovieStore();
+  const { user }= useAuthStore();
+  const { moviesRedux, activeMovie, cerrarModal } = useMovieStore();
 
   const [switchButtons, setSwitchButtons] = useState(false);
 
+  const location=useLocation();
+
   useEffect(() => {
+
+    if (location.pathname === '/user'){
+      moviesRedux.map(movieR => {
+        movieR.movieId === activeMovie.movieId
+          && setSwitchButtons(true)
+      });
+      return;
+    }
+
     moviesRedux.map(movieR => {
       movieR.movieId === activeMovie.id
         && setSwitchButtons(true)
@@ -31,11 +44,11 @@ export const Modal = () => {
           <div className="w-full md:h-[50%] h-[40%]">
             <img
               className="w-full h-full object-cover"
-              src={`https://image.tmdb.org/t/p/original/${activeMovie.backdrop_path}`}
-              alt={activeMovie.title}
+              src={`https://image.tmdb.org/t/p/original/${activeMovie.backdrop_path || activeMovie.img}`}
+              alt={activeMovie.title || activeMovie.titulo}
             />
             <div className="absolute w-full top-[30%] p-4 md:p-8">
-              <h1 className="text-xl md:text-4xl font-bold">{activeMovie.title}</h1>
+              <h1 className="text-xl md:text-4xl font-bold">{activeMovie.title || activeMovie.titulo}</h1>
             </div>
           </div>
           <div className="w-full h-[50%]">
@@ -47,7 +60,7 @@ export const Modal = () => {
                   : <AddButton movie={activeMovie} switchButtons={switchButtons} setSwitchButtons={setSwitchButtons} />
               }
             </div>
-            <p className="w-full text-gray-200 p-5">{trunckarTexto(activeMovie.overview, 428)}</p>
+            <p className="w-full text-gray-200 p-5">{trunckarTexto(activeMovie.overview || activeMovie.desc, 428)}</p>
           </div>
           <button
             onClick={handleCerrarModal}
