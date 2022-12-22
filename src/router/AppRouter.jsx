@@ -5,13 +5,17 @@ import { HomeRoutes } from "../Home/routes/HomeRouter";
 import { useAuthStore, useMovieStore } from "../hooks";
 
 export const AppRouter = () => {
+
   const { status, user, checkingAuth } = useAuthStore();
+
   const { cargarFavorites } = useMovieStore();
+
   checkingAuth();
+  
   useEffect(() => {
     cargarFavorites();
   }, [user.uid]);
-  
+
 
   return (
     <Routes>

@@ -16,7 +16,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const errors = {
     noUser: "Firebase: Error (auth/user-not-found).",
-
+    // TODO: Error para la para cuando un usuario esta ya en uso
 }
 
 export const useAuthStore = () => {
@@ -25,7 +25,9 @@ export const useAuthStore = () => {
 
     const dispatch = useDispatch();
 
-    // Iniciar sesion email y password.
+    // !Procesos relacionados al iniciar sesíon
+
+    //? Iniciar sesion email y password.
     const loginEmailandPassword = async ({ email, password }) => {
         dispatch(onChecking());
         try {
@@ -47,7 +49,7 @@ export const useAuthStore = () => {
     }
 
 
-    // Iniciar sesion con Google
+    //? Iniciar sesion con Google
     const signInWithGoogle = async () => {
         dispatch(onChecking());
         try {
@@ -62,13 +64,13 @@ export const useAuthStore = () => {
     }
 
 
-    // Iniciar sesion como invitado
+    //? Iniciar sesion como invitado
     const singInInvitado = () => {
         dispatch(onChecking());
         dispatch(onLogin({ uid: '001guess', displayName: 'Invitado', email: '' }));
     }
 
-    // Regitrarse
+    //? Regitrarse
     const registerWithEmailAndPassword = async ({ email, password, displayName }) => {
         dispatch(onChecking());
         try {
@@ -85,7 +87,7 @@ export const useAuthStore = () => {
     }
 
 
-    // Checkear el estado y mantenerlo
+    //? Checkear el estado y mantenerlo
     const checkingAuth = () => {
         useEffect(() => {
             if(localStorage.getItem('invitado')) return;
@@ -99,7 +101,7 @@ export const useAuthStore = () => {
 
     }
 
-    //Logout firestore 
+    //? Logout firestore 
     const logoutFirestore = async () => {
         try {
             await FirebaseAuth.signOut();
@@ -109,19 +111,19 @@ export const useAuthStore = () => {
         }
     }
 
-    // Logout de invitado
+    //? Logout de invitado
     const logoutInvitado = () => {
         localStorage.removeItem('invitado');
         dispatch(onLogout());
     }
 
     return {
-        /* Propiedades */
+        //* Propiedades
         status,
         user,
         errorMessage,
 
-        /* Metodos */
+        //* Metodos
         loginEmailandPassword,
         signInWithGoogle,
         singInInvitado,

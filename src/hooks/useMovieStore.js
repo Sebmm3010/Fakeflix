@@ -12,14 +12,17 @@ export const useMovieStore = () => {
     const { activeMovie, showModal } = modal;
     const dispatch = useDispatch();
 
+    // !Procesos relacionado con la seccion de favoritos
+    // ? Guardar peliculas en favoritos
     const addToFavorites = async (movie) => {
         dispatch(saving());
-
+        // ?Proceso para guardar como invitado
         if (uid === '001guess') {
-            dispatch(addMovie({movie,uid}));
+            dispatch(addMovie({ movie, uid }));
             dispatch(notSaving());
             return;
         }
+        // ? Proceso para guardar usando firebase
         const newDoc = doc(collection(FirebaseDB, `${uid}/favorites/movies`));
         movie.id = newDoc.id;
         await setDoc(newDoc, movie);
@@ -27,9 +30,10 @@ export const useMovieStore = () => {
         dispatch(notSaving());
     }
 
+    // ? Cargar peluculas desde alguna de las bases de datos
     const cargarFavorites = async () => {
         if (!uid) return;
-
+        //? Cargar peluculas probenientes del localstorage 
         if (uid === '001guess') {
             let moviesLS = [];
             localStorage.getItem('movies')
@@ -38,7 +42,7 @@ export const useMovieStore = () => {
             dispatch(setFavorites(moviesLS));
             return;
         }
-
+        //? Cargar peluculas desde firebase
         const moviesFB = [];
         const docs = await getDocs(collection(FirebaseDB, `${uid}/favorites/movies`), orderBy('date', 'desc'));
         docs.forEach(doc => {
@@ -46,41 +50,45 @@ export const useMovieStore = () => {
         });
         dispatch(setFavorites(moviesFB));
     }
-
+    // ? Borrar peliculas de favoritos
     const borrarMovie = async (movie) => {
         dispatch(saving());
-
+        // ? Borrar del LocalStorage
         if (uid === '001guess') {
             dispatch(removeMovie({ movie, uid }))
             dispatch(notSaving());
             return;
         }
-
+        // ? Borrar de firebase
         const docRef = doc(FirebaseDB, `${uid}/favorites/movies/${movie.id}`);
         await deleteDoc(docRef);
         dispatch(removeMovie(movie.id));
         dispatch(notSaving());
     }
-
+    // ? Limpiar el redux al hacer logout
     const logutClearMovies = () => {
         dispatch(clearMovies());
     }
 
+    // !Procesos relacionados con el modal
+
+    // ? Abrir modal
     const abrirModal = (movie) => {
         dispatch(openModal(movie));
     }
+    // ? Cerrar modal
     const cerrarModal = () => {
         dispatch(closeModal());
     }
 
     return {
-        /* Propiedades */
+        //* Propiedades
         moviesRedux: movies,
         isSaving,
         activeMovie,
         showModal,
 
-        /* Metodos */
+        //* Metodos
         addToFavorites,
         cargarFavorites,
         logutClearMovies,
