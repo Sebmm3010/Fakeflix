@@ -1,27 +1,29 @@
 import { collection, deleteDoc, doc, getDocs, orderBy, setDoc } from "firebase/firestore/lite";
 import { useDispatch, useSelector } from "react-redux"
 import { FirebaseDB } from "../firebase/config";
-import { addMovie, clearMovies, notSaving, removeMovie, saving, setFavorites } from "../store";
+import { addMovie, clearMovies, closeModal, notSaving, openModal, removeMovie, saving, setFavorites } from "../store";
+import { useAuthStore } from "./useAuthStore";
 
 
 export const useMovieStore = () => {
-    const { user } = useSelector(state=>state.auth);
+    const { user } = useAuthStore()
     const { uid } = user;
-    const { movies, isSaving } = useSelector(state => state.movies);
+    const { movies, isSaving, modal } = useSelector(state => state.movies);
+    const { activeMovie, showModal } = modal;
     const dispatch = useDispatch();
 
     const addToFavorites = async (movie) => {
         dispatch(saving());
 
         if (uid === '001guess') {
-            dispatch(addMovie(movie));
+            dispatch(addMovie({movie,uid}));
             dispatch(notSaving());
             return;
         }
         const newDoc = doc(collection(FirebaseDB, `${uid}/favorites/movies`));
         movie.id = newDoc.id;
         await setDoc(newDoc, movie);
-        dispatch(addMovie({movie, uid}));
+        dispatch(addMovie({ movie, uid }));
         dispatch(notSaving());
     }
 
@@ -29,9 +31,9 @@ export const useMovieStore = () => {
         if (!uid) return;
 
         if (uid === '001guess') {
-            let moviesLS=[];
+            let moviesLS = [];
             localStorage.getItem('movies')
-                ? moviesLS=JSON.parse(localStorage.getItem('movies'))
+                ? moviesLS = JSON.parse(localStorage.getItem('movies'))
                 : localStorage.setItem('movies', JSON.stringify([]));
             dispatch(setFavorites(moviesLS));
             return;
@@ -49,7 +51,7 @@ export const useMovieStore = () => {
         dispatch(saving());
 
         if (uid === '001guess') {
-            dispatch(removeMovie({movie, uid}))
+            dispatch(removeMovie({ movie, uid }))
             dispatch(notSaving());
             return;
         }
@@ -64,15 +66,26 @@ export const useMovieStore = () => {
         dispatch(clearMovies());
     }
 
+    const abrirModal = (movie) => {
+        dispatch(openModal(movie));
+    }
+    const cerrarModal = () => {
+        dispatch(closeModal());
+    }
+
     return {
         /* Propiedades */
         moviesRedux: movies,
         isSaving,
+        activeMovie,
+        showModal,
 
         /* Metodos */
         addToFavorites,
         cargarFavorites,
         logutClearMovies,
-        borrarMovie
+        borrarMovie,
+        abrirModal,
+        cerrarModal,
     }
 }

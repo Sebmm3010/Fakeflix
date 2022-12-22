@@ -1,42 +1,13 @@
-// import { useEffect, useMemo, useState } from 'react';
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-import { useMovieStore } from '../../hooks';
+import { useMovieStore } from "../../hooks";
+
 export const RailItem = ({ movie }) => {
 
+    const { activeMovie ,abrirModal } = useMovieStore();
 
-    const { moviesRedux, isSaving, addToFavorites, borrarMovie } = useMovieStore();
-
-    const movieDB = {
-        id: '',
-        movieId: movie.id,
-        titulo: movie.title,
-        img: movie.backdrop_path,
+    const hanldeOpenModal = () => {
+        abrirModal(movie);
     }
 
-    const handleAdd = () => {
-        addToFavorites(movieDB);
-    }
-
-    const handleDelete = () => {
-        const movieSelected = moviesRedux.filter(movieFb => {
-            if (movieFb.movieId === movie.id) {
-                return movieFb;
-            }
-        });
-        borrarMovie(movieSelected[0]);
-    }
-
-    // useMemo(() => {
-    //     moviesRedux.length === 0 && setLike(false);
-    //     moviesRedux.map(movieR => {
-    //         if (movieR.movieId === movieDB.movieId) {
-    //             setLike(true);
-    //         }
-    //     });
-    // }, [moviesRedux]);
-
-
-    const likes = `absolute top-6 left-4 text-gray-300 animate__animated ${isSaving ? 'animate__flipOutY' : 'animate__flipInY'} animate__faster`;
     return (
         <>
             <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2">
@@ -57,7 +28,8 @@ export const RailItem = ({ movie }) => {
                                 ease-in-out 
                                 delay-50
                                 ">
-                    <p className="whitespace-normal
+                    <p onClick={() => hanldeOpenModal()}
+                        className="whitespace-normal
                                 text-xs
                                 md:text-sm
                                 font-bold
@@ -69,17 +41,9 @@ export const RailItem = ({ movie }) => {
                                 ">
                         {movie.title}
                     </p>
-                    <button disabled={isSaving}>
-                        {
-                            moviesRedux.length > 0 ?
-                                moviesRedux.map((movieR) => (
-                                    movieR.movieId === movie.id ? <FaHeart key={JSON.stringify(movieR)} onClick={handleDelete} className={likes+' borrar'} /> : <FaRegHeart onClick={handleAdd} className={likes+' agregar'} key={JSON.stringify(movieR)} />
-                                ))
-                                : <FaRegHeart onClick={handleAdd} className={likes} />
-                        }
-                    </button>
                 </div>
             </div>
+            
         </>
     )
 }

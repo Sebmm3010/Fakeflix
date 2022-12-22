@@ -38,10 +38,21 @@ img,
 }
 
 .myShadow:hover {
-  -webkit-box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
-  -moz-box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
-  box-shadow: -1px 3px 15px 0px rgba(255, 255, 255, 0.7);
+  -webkit-box-shadow: -1px 3px 8px 0px rgba(255, 255, 255, 0.7);
+  -moz-box-shadow: -1px 3px 8px 0px rgba(255, 255, 255, 0.7);
+  box-shadow: -1px 3px 8px 0px rgba(255, 255, 255, 0.7);
 
+}
+
+.addShadow:hover {
+  -webkit-box-shadow: inset 1px -1px 36px 0px rgba(31, 158, 14, 1);
+  -moz-box-shadow: inset 1px -1px 36px 0px rgba(31, 158, 14, 1);
+  box-shadow: inset 1px -1px 36px 0px rgba(31, 158, 14, 1);
+}
+.deleteShadow:hover {
+  -webkit-box-shadow: inset 1px -1px 36px 0px #E50608;
+  -moz-box-shadow: inset 1px -1px 36px 0px #E50608;
+  box-shadow: inset 1px -1px 36px 0px #E50608;
 }
 
 .colored-toast.swal2-icon-warning {

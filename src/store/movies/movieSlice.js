@@ -4,6 +4,10 @@ export const movieSlice = createSlice({
     name: 'movie',
     initialState: {
         isSaving: false,
+        modal:{
+            activeMovie:{},
+            showModal:false
+        },
         movies: []
     },
     reducers: {
@@ -32,10 +36,19 @@ export const movieSlice = createSlice({
         },
         notSaving: (state) => {
             state.isSaving = false;
+        },
+        openModal: (state, {payload})=>{
+            state.modal.activeMovie=payload;
+            state.modal.showModal = true;
+
+        },
+        closeModal: (state) => {
+            state.modal.activeMovie = {};
+            state.modal.showModal = false;
         }
     }
 });
 
 
 // Action creators are generated for each case reducer function
-export const { addMovie, setFavorites, clearMovies, removeMovie, saving, notSaving } = movieSlice.actions;
+export const { addMovie, setFavorites, clearMovies, removeMovie, saving, notSaving, openModal, closeModal } = movieSlice.actions;

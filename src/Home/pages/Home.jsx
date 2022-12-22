@@ -1,11 +1,18 @@
 import { memo } from "react";
-import { Hero, Navbar, Rail } from "../components";
+import { useMovieStore } from "../../hooks";
+import { Hero, Modal, Rail } from "../components";
 import { HomeLayout } from "../layout/HomeLayout";
 
 export const Home = memo(() => {
+  const { showModal }=useMovieStore();
   return (
     <>
       <HomeLayout>
+        {
+          showModal
+            ? <Modal />
+            : <></>
+        }
         <Hero />
         <Rail rowId='1' titulo='Proximamente' options={{ opt: 'soon' }} />
         <Rail rowId='2' titulo='Populares' options={{ opt: 'popular', page: 2 }} />
