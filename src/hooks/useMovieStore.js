@@ -66,7 +66,7 @@ export const useMovieStore = () => {
         dispatch(notSaving());
     }
     // ? Limpiar el redux al hacer logout
-    const logutClearMovies = () => {
+    const logoutClearMovies = () => {
         dispatch(clearMovies());
     }
 
@@ -91,7 +91,7 @@ export const useMovieStore = () => {
         //* Metodos
         addToFavorites,
         cargarFavorites,
-        logutClearMovies,
+        logoutClearMovies,
         borrarMovie,
         abrirModal,
         cerrarModal,

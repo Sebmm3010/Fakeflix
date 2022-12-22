@@ -1,12 +1,8 @@
-import { useMovieStore } from "../../hooks";
+import { useHomeComponents } from "../hooks/useHomeComponents";
 
 export const RailItem = ({ movie }) => {
 
-    const { abrirModal } = useMovieStore();
-
-    const hanldeOpenModal = () => {
-        abrirModal(movie);
-    }
+    const { abrirModal } = useHomeComponents();
 
     return (
         <>
@@ -28,7 +24,7 @@ export const RailItem = ({ movie }) => {
                                 ease-in-out 
                                 delay-50
                                 ">
-                    <p onClick={() => hanldeOpenModal()}
+                    <p onClick={() => abrirModal(movie)}
                         className="whitespace-normal
                                 text-xs
                                 md:text-sm
@@ -43,7 +39,7 @@ export const RailItem = ({ movie }) => {
                     </p>
                 </div>
             </div>
-            
+
         </>
     )
 }

@@ -1,20 +1,10 @@
 import { Link } from "react-router-dom"
-import { useAuthStore, useMovieStore } from "../../hooks";
 import { IoExitOutline } from "react-icons/io5";
 import { separaStrings } from "../../helpers";
+import { useHomeComponents } from "../hooks/useHomeComponents";
 
 export const Navbar = () => {
-  const { user, logoutFirestore, logoutInvitado } = useAuthStore();
-  const { logutClearMovies } = useMovieStore();
-
-  const handleLogout = () => {
-    if (user.uid === '001guess') {
-      logutClearMovies();
-      logoutInvitado();
-    }
-    logutClearMovies();
-    logoutFirestore();
-  }
+  const { user, handleLogout }= useHomeComponents();
   const name = separaStrings(user.displayName);
   return (
     <>
@@ -26,7 +16,7 @@ export const Navbar = () => {
         <div className="flex items-center">
           <Link to='/user'>
             <button className="text-white pr-4 capitalize">
-              {name? name: user.displayName}
+              {name ? name : user.displayName}
             </button>
           </Link>
           <button

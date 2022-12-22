@@ -1,28 +1,14 @@
 import { useMemo, useState } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { getMovies } from "../../services/getMovies";
+import { useHomeComponents } from "../hooks/useHomeComponents";
 import { RailItem } from "./";
 
-export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
+export const Rail = ({ titulo = '', options = {}, rowId = '' }) => {
 
   const [movies, setMovies] = useState([]);
-
   useMemo(async () => setMovies(await getMovies(options)), [options]);
-  
-  // useEffect(() => {
-  //   (async () => {
-  //     setMovies(await getMovies(options));
-  //   })();
-  // }, [options]);
-
-  const slideLeft = () => {
-    const slider = document.getElementById('slider'+rowId);
-    slider.scrollLeft = slider.scrollLeft - 500;
-  }
-  const slideRight = () => {
-    const slider = document.getElementById('slider'+rowId);
-    slider.scrollLeft = slider.scrollLeft + 500;
-  }
+  const { slideLeft, slideRight } = useHomeComponents();
 
   const sliders = "bg-white rounded-full absolute opacity-50 hove:opacity-100 cursor-pointer z-10 hidden group-hover:block"
   return (
@@ -30,7 +16,7 @@ export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
       <h2 className="text-white font-bold md:text-xl p-4">{titulo}</h2>
       <div className="relative flex items-center group animate__animated animate__fadeIn animate__slow">
         <MdChevronLeft
-          onClick={ slideLeft }
+          onClick={() => slideLeft(rowId)}
           className={sliders + ' left-0'}
           size={40}
         />
@@ -44,7 +30,7 @@ export const Rail = ({ titulo = '', options = {}, rowId='' }) => {
         <MdChevronRight
           className={sliders + ' right-0'}
           size={40}
-          onClick={ slideRight }
+          onClick={() => slideRight(rowId)}
         />
       </div>
     </>

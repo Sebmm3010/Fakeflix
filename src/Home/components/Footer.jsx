@@ -1,10 +1,10 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useHomeComponents } from '../hooks/useHomeComponents'
 
 export const Footer = () => {
-    const { pathname } = useLocation();
+    const { location }= useHomeComponents();
     return (
-        <footer className={pathname === '/user' ? 'absolute w-full footer text-center p-4 bg-base-300 text-base-content text-white bottom-0'
+        <footer className={location.pathname === '/user' ? 'absolute w-full footer text-center p-4 bg-base-300 text-base-content text-white bottom-0'
             : "w-full footer text-center p-4 bg-base-300 text-base-content text-white bottom-0"
         }>
             <div>

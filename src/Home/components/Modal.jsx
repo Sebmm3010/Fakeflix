@@ -1,24 +1,19 @@
 import { useEffect, useState } from "react";
 import { BsBoxArrowRight } from "react-icons/bs";
-import { useLocation } from "react-router-dom";
 import { trunckarTexto } from "../../helpers";
-import { useAuthStore, useMovieStore } from "../../hooks";
+import { useHomeComponents } from "../hooks/useHomeComponents";
 import { AddButton } from "./AddButton";
 import { DeleteButton } from "./DeleteButton";
 
 
 export const Modal = () => {
 
-  const { user }= useAuthStore();
-  const { moviesRedux, activeMovie, cerrarModal } = useMovieStore();
-
   const [switchButtons, setSwitchButtons] = useState(false);
-
-  const location=useLocation();
+  const { activeMovie, moviesRedux, location, cerrarModal } = useHomeComponents();
 
   useEffect(() => {
 
-    if (location.pathname === '/user'){
+    if (location.pathname === '/user') {
       moviesRedux.map(movieR => {
         movieR.movieId === activeMovie.movieId
           && setSwitchButtons(true)
@@ -31,10 +26,6 @@ export const Modal = () => {
         && setSwitchButtons(true)
     });
   }, []);
-
-  const handleCerrarModal = () => {
-    cerrarModal();
-  }
 
   return (
     <div className="w-full h-screen absolute">
@@ -53,17 +44,16 @@ export const Modal = () => {
           </div>
           <div className="w-full h-[50%]">
             <div className="mx-5 flex items-center justify-start my-5">
-              {/* <button className="border text-white border-gray-300 py-2 px-5 myShadow transition ease-in-out delay-50">Ver más tarde</button> */}
               {
                 switchButtons
-                  ? <DeleteButton movie={activeMovie} switchButtons={switchButtons} setSwitchButtons={setSwitchButtons} />
-                  : <AddButton movie={activeMovie} switchButtons={switchButtons} setSwitchButtons={setSwitchButtons} />
+                  ? <DeleteButton movie={activeMovie} setSwitchButtons={setSwitchButtons} />
+                  : <AddButton movie={activeMovie} setSwitchButtons={setSwitchButtons} />
               }
             </div>
             <p className="w-full text-gray-200 p-5">{trunckarTexto(activeMovie.overview || activeMovie.desc, 428)}</p>
           </div>
           <button
-            onClick={handleCerrarModal}
+            onClick={cerrarModal}
             className='absolute top-2 right-3 text-3xl hover:text-[#E50608] transition-all ease-in-out delay-50 hover:scale-110'
           >
             <BsBoxArrowRight />

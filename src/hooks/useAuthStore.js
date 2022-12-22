@@ -16,7 +16,7 @@ const googleProvider = new GoogleAuthProvider();
 
 const errors = {
     noUser: "Firebase: Error (auth/user-not-found).",
-    // TODO: Error para la para cuando un usuario esta ya en uso
+    registeredUser: "Firebase: Error (auth/email-already-in-use)."
 }
 
 export const useAuthStore = () => {
@@ -81,7 +81,11 @@ export const useAuthStore = () => {
 
         } catch (error) {
             const errorMsg = error.message;
-            notifications({ type: 'error', msg: '400: no se puso registrar al usuario' });
+            if (errorMsg === errors.registeredUser) {
+                notifications({ type: 'error', msg: '401: Correo ya registrado' });
+            } else {
+                notifications({ type: 'error', msg: '400: no se puso registrar al usuario' });
+            }
             dispatch(onLogout({ errorMsg }));
         }
     }
@@ -90,7 +94,7 @@ export const useAuthStore = () => {
     //? Checkear el estado y mantenerlo
     const checkingAuth = () => {
         useEffect(() => {
-            if(localStorage.getItem('invitado')) return;
+            if (localStorage.getItem('invitado')) return;
             onAuthStateChanged(FirebaseAuth, async (user) => {
                 if (!user) return dispatch(onLogout());
 

@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react"
+import { useMemo, useState } from "react";
 import { trunckarTexto } from "../../helpers";
 import { getMovies } from "../../services/getMovies";
 
 export const Hero = () => {
 
     const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        (async () => {
-            setMovies(await getMovies({ opt: 'popular', page: 1 }));
-        })()
-    }, []);
+    useMemo(async () => setMovies(await getMovies({ opt: 'popular', page: 1 })), []);
     const peli = movies[Math.floor(Math.random() * movies.length)];
-
-
     return (
         <div className="w-full h-[550px] text-white animate__animated animate__fadeIn animate__slow">
             <div className="w-full h-full">
@@ -29,7 +22,7 @@ export const Hero = () => {
                         <button className=" border bg-gray-300 text-black border-gray-300 py-2 px-5">Play</button>
                         <button className="border ml-4 text-white border-gray-300 py-2 px-5 myShadow transition ease-in-out delay-50">Ver más tarde</button>
                     </div>
-                    <p className="w-full md:max-w-[50%] xl:max-w-[35%] text-gray-200">{trunckarTexto(peli?.overview,150)}</p>
+                    <p className="w-full md:max-w-[50%] xl:max-w-[35%] text-gray-200">{trunckarTexto(peli?.overview, 150)}</p>
                 </div>
             </div>
         </div>
