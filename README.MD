@@ -51,7 +51,7 @@ git clone https://github.com/Sebmm3010/Fakeflix.git
 * yarn
 
 ```sh
-npm install npm@latest -g
+npm install --global yarn
 ```
 
 ### Instalaciones
