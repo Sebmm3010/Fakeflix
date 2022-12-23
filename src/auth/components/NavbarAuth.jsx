@@ -8,7 +8,7 @@ export const NavbarAuth = () => {
           <h1 className="text-red-600 text-4xl font-bold cursor-pointer logo">FAKEFLIX</h1>
         </Link>
 
-        <div>
+        <div className="md:block hidden">
           <Link to='/auth/login'>
             <button className="text-white pr-4">
               Iniciar sesión

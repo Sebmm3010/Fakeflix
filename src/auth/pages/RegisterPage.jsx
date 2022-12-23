@@ -116,7 +116,7 @@ export const RegisterPage = () => {
                   <hr className="bg-gray-700" />
                   <p className="py-8 text-sm">
                     <span className="text-gray-600">Ya tienes cuenta de Fakeflix?, </span>
-                    <Link className="text-red-600 hover:underline" to='/auth/registro'>Iniciar sesión</Link>
+                    <Link className="text-red-600 hover:underline" to='/auth'>Iniciar sesión</Link>
                   </p>
                 </form>
               </div>

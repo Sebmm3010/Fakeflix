@@ -84,24 +84,6 @@ export const useHomeComponents = () => {
         const slider = document.getElementById('slider' + rowId);
         slider.scrollLeft = slider.scrollLeft + 500;
     }
-
-    // !logica del modal
-
-    // useEffect(() => {
-
-    //     if (location.pathname === '/user') {
-    //         moviesRedux.map(movieR => {
-    //             movieR.movieId === activeMovie.movieId
-    //                 && setSwitchButtons(true)
-    //         });
-    //         return;
-    //     }
-
-    //     moviesRedux.map(movieR => {
-    //         movieR.movieId === activeMovie.id
-    //             && setSwitchButtons(true)
-    //     });
-    // }, []);
     return {
         // * Propiedades
         isSaving,

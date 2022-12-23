@@ -28,7 +28,7 @@ export const LoginPage = () => {
             alt="bg"
           />
           <div className="bg-black/60 fixed top-0 left-0 w-full h-screen"></div>
-          <div className="absolute w-full px-4 py-24 z-50">
+          <div className="md:absolute w-full px-4 py-24 z-50 block">
             <div className="max-w-[600px] h-[680px] mx-auto bg-black/75 text-white animate__animated animate__fadeInUp animate__fast">
               <div className="max-w-[400px] mx-auto py-16">
                 <h1 className="text-3xl font-bold text-center">Iniciar sesión</h1>
