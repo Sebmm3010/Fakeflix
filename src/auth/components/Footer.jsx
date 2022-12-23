@@ -10,7 +10,7 @@ export const Footer = () => {
                     <a 
                         href="https://taplink.cc/sebmm3010" 
                         target="_blank" rel="noopener noreferrer" 
-                        className='cursor-pointer hover:underline hover:text-[#E50608]'
+                        className='cursor-pointer underline hover:text-[#E50608]'
                     >
                         Sebastian Madero
                     </a>
