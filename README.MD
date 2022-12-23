@@ -48,8 +48,6 @@ git clone https://github.com/Sebmm3010/Fakeflix.git
 
 ### Prerequisitos
 
-This is an example of how to list things you need to use the software and how to install them.
-
 * yarn
 
 ```sh
