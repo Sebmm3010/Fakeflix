@@ -30,7 +30,7 @@ export const Modal = () => {
   return (
     <div className="w-full h-screen absolute">
       <div className="bg-black/80 fixed top-0 left-0 w-full h-screen z-[100]"></div>
-      <div className="fixed md:top-[15%] left-0 w-full px-4 py-24 z-[100]">
+      <div className="fixed top-0 md:top-[15%] left-0 w-full px-4 py-24 z-[100]">
         <div className=" max-w-[600px] md:h-[600px] h-[700px] mx-auto bg-black text-white animate__animated animate__fadeInUp animate__fast">
           <div className="w-full md:h-[50%] h-[40%]">
             <img
