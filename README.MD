@@ -67,7 +67,7 @@ npm install --global yarn
 yarn install
 ```
 
-4. Quitar el .template de .env.template y pegar la Api key y las credenciales donde debe ir cada
+4. Quitar el .template de .env.template y pegar la Api key y las credenciales donde debe ir cada una
 
 ```JS
 VITE_MOVIEDB=
@@ -80,6 +80,6 @@ VITE_APPID=
 ```
 5. Conffigurar config.js con las credenciales y el getMovies con las .env
 
-## Authors
+## Autor
 
 * **Sebastian Madero** - *Front-end developer | React developer* - [Sebastian Madero](https://github.com/Sebmm3010)
