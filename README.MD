@@ -10,7 +10,7 @@
     Clon de Netflix con la capacidad de guardar pelicular como favoritas y autenticación con Firebase
     <br/>
     <br/>
-    <a href="https://github.com/Sebmm3010/Fakeflix">Demo</a>
+    <a href="https://fakeflix-smm.netlify.app/">Demo</a>
     .
   </p>
 </p>
