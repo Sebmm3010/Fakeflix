@@ -81,4 +81,4 @@ VITE_APPID=
 
 ## Autor
 
-* **Sebastian Madero** - *Front-end developer | React developer* - [Sebastian Madero](https://github.com/Sebmm3010)
+* **Sebastian Madero** - *Front-end developer | React developer* - [Sebmm3010](https://github.com/Sebmm3010)
