@@ -46,7 +46,7 @@ Descargar desde los archivos desde el repositorio o clonar el repositorio.
 git clone https://github.com/Sebmm3010/Fakeflix.git
 ```
 
-### Prerequisitos
+### Instalaciones
 
 * yarn
 
@@ -54,12 +54,11 @@ git clone https://github.com/Sebmm3010/Fakeflix.git
 npm install --global yarn
 ```
 
-### Instalaciones
+### Pre-requisitos
 
 1. Obtener una API Key de  the Movie Database en [https://www.themoviedb.org/]
 
 2. Obtener credenciales de Firebase en [https://firebase.google.com/]
-
 
 3. Instalar los node_modules con yarn
 
