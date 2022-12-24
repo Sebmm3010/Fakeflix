@@ -77,7 +77,7 @@ VITE_STORAGE=
 VITE_SENDERID=
 VITE_APPID=
 ```
-5. Conffigurar config.js con las credenciales y el getMovies con las .env
+5. Configurar config.js con las credenciales y el getMovies con las .env
 
 ## Autor
 
