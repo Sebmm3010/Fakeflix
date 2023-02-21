@@ -46,22 +46,19 @@ Descargar desde los archivos desde el repositorio o clonar el repositorio.
 git clone https://github.com/Sebmm3010/Fakeflix.git
 ```
 
-### Prerequisitos
-
-This is an example of how to list things you need to use the software and how to install them.
+### Instalaciones
 
 * yarn
 
 ```sh
-npm install npm@latest -g
+npm install --global yarn
 ```
 
-### Instalaciones
+### Pre-requisitos
 
 1. Obtener una API Key de  the Movie Database en [https://www.themoviedb.org/]
 
 2. Obtener credenciales de Firebase en [https://firebase.google.com/]
-
 
 3. Instalar los node_modules con yarn
 
@@ -69,7 +66,7 @@ npm install npm@latest -g
 yarn install
 ```
 
-4. Quitar el .template de .env.template y pegar la Api key y las credenciales donde debe ir cada
+4. Quitar el .template de .env.template y pegar la Api key y las credenciales donde debe ir cada una
 
 ```JS
 VITE_MOVIEDB=
@@ -80,8 +77,8 @@ VITE_STORAGE=
 VITE_SENDERID=
 VITE_APPID=
 ```
-5. Conffigurar config.js con las credenciales y el getMovies con las .env
+5. Configurar config.js con las credenciales y el getMovies con las .env
 
-## Authors
+## Autor
 
-* **Sebastian Madero** - *Front-end developer | React developer* - [Sebastian Madero](https://github.com/Sebmm3010)
+* **Sebastian Madero** - *Front-end developer | React developer* - [Sebmm3010](https://github.com/Sebmm3010)
