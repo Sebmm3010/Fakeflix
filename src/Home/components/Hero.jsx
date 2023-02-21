@@ -1,11 +1,15 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import { trunckarTexto } from "../../helpers";
 import { getMovies } from "../../services/getMovies";
 
 export const Hero = () => {
 
     const [movies, setMovies] = useState([]);
-    useMemo(async () => setMovies(await getMovies({ opt: 'popular', page: 1 })), []);
+    useEffect(() => {
+        (async () =>
+            setMovies(await getMovies({ opt: 'popular', page: 1 }))
+        )()
+    }, []);
     const peli = movies[Math.floor(Math.random() * movies.length)];
     return (
         <div className="w-full h-[550px] text-white animate__animated animate__fadeIn animate__slow">

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { getMovies } from "../../services/getMovies";
 import { useHomeComponents } from "../hooks/useHomeComponents";
@@ -7,7 +7,11 @@ import { RailItem } from "./";
 export const Rail = ({ titulo = '', options = {}, rowId = '' }) => {
 
   const [movies, setMovies] = useState([]);
-  useMemo(async () => setMovies(await getMovies(options)), [options]);
+  useEffect(()=>{
+    (async()=> 
+      setMovies(await getMovies(options))
+    )()
+  }, []);
   const { slideLeft, slideRight } = useHomeComponents();
 
   const sliders = "bg-white rounded-full absolute opacity-50 hove:opacity-100 cursor-pointer z-10 hidden group-hover:block"
